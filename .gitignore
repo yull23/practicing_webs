@@ -1,5 +1,5 @@
 # compiled output
-/dist
-/build
-/db
+**/dist
+**/build
+**/db
 **/node_modules
