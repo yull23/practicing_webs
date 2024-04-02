@@ -13,6 +13,6 @@ export const getAllLinksWikipedia = async () => {
     name: launch.name,
     linkWikipedia: launch.links.wikipedia,
   }));
-  console.log(links);
+  // console.log(links);
   return links;
 };
