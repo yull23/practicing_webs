@@ -1,11 +1,12 @@
-import { getLaunchesData } from './services/read-file'
+import { initReadFile } from './init-read-file'
+import { openWebPage } from './open-web-page'
 
 async function app() {
-  // Get Api
-  // Tratamiento
   try {
-    const data = await getLaunchesData()
-    console.log(data)
+    // Get Data from to API
+    // const data = await initReadFile()
+    const dataWebPage = await openWebPage()
+    console.log(dataWebPage)
   } catch (error) {
     console.error(error)
   }
