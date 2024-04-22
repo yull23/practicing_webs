@@ -17,6 +17,8 @@ export const initReadFile = async () => {
     failures: launch.failures,
     linkWikipedia: launch.links.wikipedia,
   }))
+  linksSearchWikipedia[0].linkWikipedia =
+    'https://en.wikipedia.org/wiki/FalconSAT'
   const jsonData = JSON.stringify(linksSearchWikipedia, null, 2)
   await fs.promises.writeFile('launches.json', jsonData)
   return linksSearchWikipedia
