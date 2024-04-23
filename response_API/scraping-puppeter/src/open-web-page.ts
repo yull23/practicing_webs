@@ -1,9 +1,7 @@
 import puppeteer, { Page } from 'puppeteer'
 import { readJson } from './services/read-json'
 import { ReadFileData, Links } from './types/types'
-import fs from 'fs'
 import { elementsPage } from './services/elements'
-import path from 'path'
 
 export async function openWebPage() {
   const browser = await puppeteer.launch({
