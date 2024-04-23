@@ -24,11 +24,15 @@ export async function openWebPage() {
             'https://en.wikipedia.org/wiki/' + launchData.name
           await page.goto(link)
           const elements = await elementsPage(page)
+          await page.close()
+
           return {
             ...launchData,
             elements,
           }
-        } catch (error) {}
+        } catch (error) {
+          console.log(error)
+        }
       }),
     )
     return data
