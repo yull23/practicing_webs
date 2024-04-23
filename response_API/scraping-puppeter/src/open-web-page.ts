@@ -1,28 +1,34 @@
 import puppeteer, { Page } from 'puppeteer'
 import { readJson } from './services/read-json'
-import { foundLaunch } from './services/found-launch'
-import { notFoundLaunch } from './services/not-found_launch'
-import { ReadFileData } from './types/types'
+import { ReadFileData, Links } from './types/types'
+import fs from 'fs'
+import { elementsPage } from './services/elements'
+import path from 'path'
 
 export async function openWebPage() {
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
   })
 
   const jsonData: ReadFileData = await readJson()
-  const newArray = jsonData.slice(96, 98)
-  console.log(newArray)
+  // const newArray = jsonData.slice(96, 105)
 
   try {
     const data = await Promise.all(
-      newArray.map(async (launchData) => {
+      jsonData.map(async (launchData) => {
         const page = await browser.newPage()
         await page.setViewport({ width: 1600, height: 800 })
-        if (launchData.linkWikipedia) {
-          return await foundLaunch(page, launchData)
-        } else {
-          return await notFoundLaunch(page, launchData)
-        }
+        try {
+          const link =
+            launchData.linkWikipedia ||
+            'https://en.wikipedia.org/wiki/' + launchData.name
+          await page.goto(link)
+          const elements = await elementsPage(page)
+          return {
+            ...launchData,
+            elements,
+          }
+        } catch (error) {}
       }),
     )
     return data
